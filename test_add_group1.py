@@ -37,7 +37,7 @@ class TestAddGroup1(unittest.TestCase):
     def create_group(self, wd, Group):
         # init group creation
         wd.find_element_by_name("new").click()
-        # fill group firm
+        # fill group form
         wd.find_element_by_name("group_name").click()
         wd.find_element_by_name("group_name").clear()
         wd.find_element_by_name("group_name").send_keys(Group.name)
