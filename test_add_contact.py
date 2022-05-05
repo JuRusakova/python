@@ -15,8 +15,10 @@ class TestAddContact(unittest.TestCase):
     def test_add_contact(self):
         wd = self.wd
         self.open_home_page(wd)
-        self.login(wd)
-        self.add_new_contact(wd)
+        self.login(wd, username="admin", password="secret")
+        self.add_new_contact(wd, firstname= "Fill",middlename= "Midd",lastname= "Last", title="Title",company= "Com", address= "Address",home= "1",mobile= "2", work="3",fax= "4",email= "e",email2= "e2",email3= "e3",
+                             homepage= "home",bday= "7",bmonth= "July",byear= "1990", aday="12",ayear="2010", amonth="February",address2= "ADDRESS",phone2= "Home", notes="Notes",
+                             nickname="Nivada")
         self.return_to_home_page(wd)
         self.logout(wd)
 
@@ -26,11 +28,9 @@ class TestAddContact(unittest.TestCase):
     def return_to_home_page(self, wd):
         wd.find_element_by_link_text("home page").click()
 
-    def add_new_contact(self, wd, firstname="Fill", middlename="Midd", lastname="Last", title="Title", company="Com",
-                        address="Address", home="1", mobile="2", work="3", fax="4", e="e", email="e", email2="e2",
-                        email3="e3", homepage="home", bday="7", bmonth="July", byear="1990", aday="12",
-                        amonth="February", ayear="2010", address2="ADDRESS", phone2="Home", notes="Notes",
-                        nickname="Nivada"):
+    def add_new_contact(self, wd, firstname, middlename, lastname, title, company, address, home, mobile, work, fax,
+                        email, email2, email3, homepage, bday, bmonth, byear, aday, ayear, amonth, address2, phone2,
+                        notes, nickname):
         # init new contact creation
         wd.find_element_by_link_text("add new").click()
         # fill new contact form
@@ -103,7 +103,7 @@ class TestAddContact(unittest.TestCase):
         # submit new contact creation
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
 
-    def login(self, wd, username="admin", password="secret"):
+    def login(self, wd, username, password):
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
         wd.find_element_by_name("user").send_keys(username)
