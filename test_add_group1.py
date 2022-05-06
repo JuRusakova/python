@@ -12,7 +12,6 @@ class TestAddGroup1(unittest.TestCase):
     
     def test_add_group1(self):
         wd = self.wd
-        self.open_home_page(wd)
         self.login(wd, username="admin", password="secret")
         self.open_group_page(wd)
         self.create_group(wd, Group(name="name", header="logo",footer="comment"))
@@ -21,7 +20,6 @@ class TestAddGroup1(unittest.TestCase):
 
     def test_add_group2(self):
         wd = self.wd
-        self.open_home_page(wd)
         self.login(wd, username="admin", password="secret")
         self.open_group_page(wd)
         self.create_group(wd, Group(name="", header="", footer=""))
@@ -34,18 +32,18 @@ class TestAddGroup1(unittest.TestCase):
     def return_to_group_page(self, wd):
         wd.find_element_by_link_text("group page").click()
 
-    def create_group(self, wd, Group):
+    def create_group(self, wd, group):
         # init group creation
         wd.find_element_by_name("new").click()
         # fill group form
         wd.find_element_by_name("group_name").click()
         wd.find_element_by_name("group_name").clear()
-        wd.find_element_by_name("group_name").send_keys(Group.name)
+        wd.find_element_by_name("group_name").send_keys(group.name)
         wd.find_element_by_name("group_header").clear()
-        wd.find_element_by_name("group_header").send_keys(Group.header)
+        wd.find_element_by_name("group_header").send_keys(group.header)
         wd.find_element_by_name("group_footer").click()
         wd.find_element_by_name("group_footer").clear()
-        wd.find_element_by_name("group_footer").send_keys(Group.footer)
+        wd.find_element_by_name("group_footer").send_keys(group.footer)
         # submit group creation
         wd.find_element_by_name("submit").click()
 
@@ -53,6 +51,7 @@ class TestAddGroup1(unittest.TestCase):
         wd.find_element_by_link_text("groups").click()
 
     def login(self, wd, username, password):
+        self.open_home_page(wd)
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
         wd.find_element_by_name("user").send_keys(username)
