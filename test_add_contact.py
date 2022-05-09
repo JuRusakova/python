@@ -74,10 +74,10 @@ class TestAddContact(unittest.TestCase):
         wd.find_element_by_name("homepage").send_keys(cont.homepage)
         wd.find_element_by_name("bday").click()
         Select(wd.find_element_by_name("bday")).select_by_visible_text(cont.bday)
-        wd.find_element_by_xpath("//option[@value='7']").click()
+        wd.find_element_by_xpath("//div[@id='content']/form/select/option[9]").click()
         wd.find_element_by_name("bmonth").click()
         Select(wd.find_element_by_name("bmonth")).select_by_visible_text(cont.bmonth)
-        wd.find_element_by_xpath("//option[@value='July']").click()
+        wd.find_element_by_xpath("//div[@id='content']/form/select[2]/option[8]").click()
         wd.find_element_by_name("byear").click()
         wd.find_element_by_name("byear").clear()
         wd.find_element_by_name("byear").send_keys(cont.byear)
@@ -111,7 +111,7 @@ class TestAddContact(unittest.TestCase):
         wd.find_element_by_id("LoginForm").submit()
 
     def open_home_page(self, wd):
-        wd.get("http://localhost/addressbook/")
+        self.wd.get("http://localhost/addressbook/")
 
     def tearDown(self):
         self.wd.quit()
