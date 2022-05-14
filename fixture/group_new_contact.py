@@ -5,7 +5,7 @@ class GroupHelper:
     def __init__(self, app):
         self.app = app
 
-    def create_cont(self, cont):
+    def create_c(self, cont):
         wd = self.app.wd
         # init new contact creation
         wd.find_element_by_link_text("add new").click()
