@@ -36,7 +36,7 @@ class Application:
         wd = self.wd
         wd.find_element_by_link_text("groups").click()
 
-    def login(self,username, password):
+    def login(self, username, password):
         wd = self.wd
         self.open_home_page()
         wd.find_element_by_name("user").clear()
