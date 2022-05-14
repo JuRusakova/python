@@ -11,11 +11,11 @@ def app(request):
     return fixture
 
 def test_add_group2(app):
-   app.login(username="admin", password="secret")
+   app.session.login(username="admin", password="secret")
    app.create_group(Group(name="nhb", header="juyy", footer="fhu"))
-   app.logout()
+   app.session.logout()
 
 def test_add_group3(app):
-    app.login(username="admin", password="secret")
+    app.session.login(username="admin", password="secret")
     app.create_group(Group(name="", header="", footer=""))
-    app.logout()
+    app.session.logout()
