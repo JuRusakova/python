@@ -14,7 +14,10 @@ class SessionHelper:
         wd.find_element_by_id("LoginForm").submit()
 
     def logout(self):
-        wd = self.app.wd
-        wd.find_element(by=By.LINK_TEXT, value="Logout").click()
-        wd.find_element(by=By.NAME, value="user")
+        #wd = self.app.wd
+        #wd.find_element_by_link_text("Logout").click()
+         wd = self.app.wd
+         wd.find_element_by_link_text("Logout").click()
+         wd.find_element_by_name("user")
+
 
