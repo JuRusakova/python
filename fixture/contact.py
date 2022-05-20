@@ -30,7 +30,7 @@ class ContactHelper:
 
     def count(self):
         wd = self.app.wd
-        wd.find_element_by_link_text("home").click()
+        self.home_page_cont()
         return len(wd.find_elements_by_name("selected[]"))
 
     def fill_contact_form(self, cont):
@@ -82,7 +82,7 @@ class ContactHelper:
 
     def delete_first_contact(self):
         wd = self.app.wd
-        wd.find_element_by_link_text("home").click()
+        self.home_page_cont()
         # select first cotact
         wd.find_element_by_name("selected[]").click()
         # submit deletion
@@ -93,10 +93,15 @@ class ContactHelper:
 
     def delete_all_contacts(self):
         wd = self.app.wd
-        wd.find_element_by_link_text("home").click()
+        self.home_page_cont()
         # select all cotact
         wd.find_element_by_xpath("//div[@id='content']/form[2]/input[2]").click()
         # submit deletion
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         # allert
         wd.switch_to.alert.accept()
+
+    def home_page_cont(self):
+        wd = self.app.wd
+        if not wd.current_url.endswith("/addressbook/") > 0:
+            wd.find_element_by_link_text("home").click()
