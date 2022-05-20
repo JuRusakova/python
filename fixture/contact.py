@@ -19,7 +19,7 @@ class ContactHelper:
             wd.find_element_by_name(field_name).click()
             wd.find_element_by_name(field_name).send_keys(text)
 
-    def create_contact(self, cont):
+    def create(self, cont):
         wd = self.app.wd
         # init new contact creation
         wd.find_element_by_link_text("add new").click()
@@ -28,7 +28,7 @@ class ContactHelper:
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
         self.return_to_home_page()
 
-    def count_cont(self):
+    def count(self):
         wd = self.app.wd
         wd.find_element_by_link_text("home").click()
         return len(wd.find_elements_by_name("selected[]"))
