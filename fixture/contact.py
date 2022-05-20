@@ -1,4 +1,8 @@
+from selenium.webdriver.support.ui import Select
+
 class ContactHelper:
+
+
     def __init__(self, app):
         self.app = app
 
@@ -17,7 +21,6 @@ class ContactHelper:
 
     def create(self, cont):
         wd = self.app.wd
-        self.home()
         # init new contact creation
         wd.find_element_by_link_text("add new").click()
         self.fill_contact_form(cont)
@@ -27,7 +30,7 @@ class ContactHelper:
 
     def count(self):
         wd = self.app.wd
-        self.home()
+        wd.find_element_by_link_text("home").click()
         return len(wd.find_elements_by_name("selected[]"))
 
     def fill_contact_form(self, cont):
@@ -57,9 +60,9 @@ class ContactHelper:
         self.change_field_value("phone2", cont.phone2)
         self.change_field_value("notes", cont.notes)
 
+
     def modify_first_contact(self, new_contact_data):
         wd = self.app.wd
-        self.home()
         self.select_first_contact()
         # open modification form
         wd.find_element_by_xpath("//img[@alt='Edit']").click()
@@ -67,6 +70,7 @@ class ContactHelper:
         self.fill_contact_form(new_contact_data)
         # submit modification
         wd.find_element_by_name("update").click()
+
 
     def select_first_contact(self):
         wd = self.app.wd
@@ -78,7 +82,7 @@ class ContactHelper:
 
     def delete_first_contact(self):
         wd = self.app.wd
-        self.home()
+        wd.find_element_by_link_text("home").click()
         # select first cotact
         wd.find_element_by_name("selected[]").click()
         # submit deletion
@@ -86,17 +90,13 @@ class ContactHelper:
         # allert
         wd.switch_to.alert.accept()
 
+
     def delete_all_contacts(self):
         wd = self.app.wd
-        self.home()
+        wd.find_element_by_link_text("home").click()
         # select all cotact
         wd.find_element_by_xpath("//div[@id='content']/form[2]/input[2]").click()
         # submit deletion
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         # allert
         wd.switch_to.alert.accept()
-
-    def home(self):
-        wd = self.app.wd
-        #if not (wd.current_url.endswith("/adressbook/") and len(wd.find_elements_by_name("searchstring")) > 0):
-        wd.find_element_by_link_text("home").click()
