@@ -1,5 +1,6 @@
 from selenium.webdriver.support.ui import Select
-
+from model.contact import Contact
+from selenium.webdriver.common.by import By
 class ContactHelper:
 
 
@@ -105,3 +106,14 @@ class ContactHelper:
         wd = self.app.wd
         if not wd.current_url.endswith("/addressbook/") > 0:
             wd.find_element_by_link_text("home").click()
+
+    def get_contact_list(self):
+        wd = self.app.wd
+        self.home_page_cont()
+        contacts = []
+        for element in wd.find_elements(by=By.NAME, value="entry"):
+            text_firstname = element.find_element(by=By.CSS_SELECTOR, value="td:nth-child(3)").text
+            text_lastname = element.find_element(by=By.CSS_SELECTOR, value="td:nth-child(2)").text
+            id = element.find_element_by_name("selected[]").get_attribute("value")
+            contacts.append(Contact(firstname=text_firstname, lastname=text_lastname, id=id))
+        return contacts
