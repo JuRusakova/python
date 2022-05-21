@@ -103,5 +103,4 @@ class ContactHelper:
 
     def home_page_cont(self):
         wd = self.app.wd
-        if not wd.current_url.endswith("/addressbook/") > 0:
-            wd.find_element_by_link_text("home").click()
+        wd.find_element_by_link_text("home").click()
