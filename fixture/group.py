@@ -1,4 +1,5 @@
 from model.group import Group
+from selenium.webdriver.common.by import By
 
 class GroupHelper:
 
@@ -14,7 +15,7 @@ class GroupHelper:
         wd = self.app.wd
         self.open_group_page()
         #init create group
-        wd.find_element_by_name("new").click()
+        wd.find_element(by=By.NAME, value="new").click()
         self.fill_group_form(group)
         #submit group creation
         wd.find_element_by_name("submit").click()
@@ -73,7 +74,7 @@ class GroupHelper:
         groups = []
         for element in wd.find_elements_by_css_selector("span.group"):
             text = element.text
-            id  = element.find_element_by_name("selected[]").get_attribute("value")
+            id = element.find_element_by_name("selected[]").get_attribute("value")
             groups.append(Group(name=text, id=id))
         return groups
 

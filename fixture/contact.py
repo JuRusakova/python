@@ -84,12 +84,13 @@ class ContactHelper:
     def delete_first_contact(self):
         wd = self.app.wd
         self.home_page_cont()
-        # select first cotact
+        # select first contact
         wd.find_element_by_name("selected[]").click()
         # submit deletion
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         # allert
         wd.switch_to.alert.accept()
+        wd.find_element_by_css_selector("div.msgbox")
 
 
     def delete_all_contacts(self):
@@ -101,6 +102,7 @@ class ContactHelper:
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         # allert
         wd.switch_to.alert.accept()
+        wd.find_element_by_css_selector("div.msgbox")
 
     def home_page_cont(self):
         wd = self.app.wd
