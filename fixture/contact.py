@@ -63,9 +63,13 @@ class ContactHelper:
         self.change_field_value("notes", cont.notes)
 
 
-    def modify_first_contact(self, new_contact_data):
+    def modify_first_contact(self):
+        self.modify_contact_by_index(0)
+
+    def modify_contact_by_index(self, index, new_contact_data):
         wd = self.app.wd
-        self.select_first_contact()
+        self.home_page_cont()
+        self.select_contact_by_index(index)
         # open modification form
         wd.find_element_by_xpath("//img[@alt='Edit']").click()
         # fill group form
@@ -76,18 +80,24 @@ class ContactHelper:
 
 
     def select_first_contact(self):
+        self.select_contact_by_index(0)
+
+    def select_contact_by_index(self, index):
         wd = self.app.wd
-        wd.find_element_by_name("selected[]").click()
+        wd.find_elements_by_name("selected[]")[index].click()
 
     def return_to_home_page(self):
         wd = self.app.wd
         wd.find_element_by_link_text("home page").click()
 
     def delete_first_contact(self):
+        self.delete_contact_by_index(0)
+
+    def delete_contact_by_index(self, index):
         wd = self.app.wd
         self.home_page_cont()
         # select first contact
-        wd.find_element_by_name("selected[]").click()
+        self.select_contact_by_index(index)
         # submit deletion
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         # allert
