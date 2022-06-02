@@ -1,7 +1,7 @@
 import re
 from random import randrange
 
-def test_phones_on_home_page(app):
+def test_entry_field_contact(app):
     contacts = app.contact.get_contact_list()
     index = randrange(len(contacts))
     contact_from_home_page = app.contact.get_contact_list()[index]
@@ -25,8 +25,6 @@ def test_phones_on_contact_view_page(app):
 def clear(s):
     return re.sub("[() -]", "", s)
 
-def clear_email(s):
-    return re.sub("[()',]","",s)
 
 def merge_phones_like_on_home_page(contact):
     return "\n".join(filter(lambda x: x != "",
@@ -36,6 +34,5 @@ def merge_phones_like_on_home_page(contact):
 
 def merge_emails_like_on_home_page(contact):
     return "\n".join(filter(lambda x: x != "",
-                            map(lambda x: clear_email(x),
                                 filter(lambda x: x is not None,
-                                       [contact.email, contact.email2, contact.email3]))))
+                                       [contact.email, contact.email2, contact.email3])))
