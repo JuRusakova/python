@@ -1,7 +1,7 @@
 
 from model.contact import Contact
 
-def test_contact_list(app, db):
+def test_contact_list(app,db):
     if len(db.get_contact_list()) == 0:
         app.contact.create(Contact(firstname="Testing", lastname="testing"))
     contacts_ui = app.contact.get_contact_list()

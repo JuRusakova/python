@@ -78,6 +78,17 @@ class ContactHelper:
         wd.find_element_by_name("update").click()
         self.contact_cache = None
 
+    def modify_contact_by_id(self, id, new_contact):
+        wd = self.app.wd
+        self.home_page_cont()
+        self.select_contact_by_id(id)
+        # open modification form
+        wd.find_element(by=By.XPATH, value="//img[@alt='Edit']").click()
+        # fill group form
+        self.fill_contact_form(new_contact)
+        # submit modification
+        wd.find_element_by_name("update").click()
+        self.contact_cache = None
 
     def select_first_contact(self):
         self.select_contact_by_index(0)
