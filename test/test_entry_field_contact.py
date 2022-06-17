@@ -1,5 +1,6 @@
 import re
 from random import randrange
+from model.contact import Contact
 
 def test_entry_field_contact(app):
     contacts = app.contact.get_contact_list()
@@ -19,6 +20,19 @@ def test_phones_on_contact_view_page(app):
     assert contact_from_view_page.mobile == contact_from_edit_page.mobile
     assert contact_from_view_page.workphone == contact_from_edit_page.workphone
     assert contact_from_view_page.phone2 == contact_from_edit_page.phone2
+
+def test_db_matces_ui_contact(app,db):
+    if len(db.get_contact_list()) == 0:
+        app.contact.create(Contact(firstname="Testing", lastname="testing"))
+    contacts_ui = sorted(app.contact.get_contact_list(), key=Contact.id_or_max)
+    contacts_db = sorted(db.get_contact_list_all(), key=Contact.id_or_max)
+    assert sorted(contacts_ui, key=Contact.id_or_max) == sorted(contacts_db, key=Contact.id_or_max)
+    for i in range(len(contacts_ui)):
+        assert contacts_ui[i].lastname == contacts_db[i].lastname
+        assert contacts_ui[i].firstname == contacts_db[i].firstname
+        assert contacts_ui[i].address == contacts_db[i].address
+        assert contacts_ui[i].all_emails_from_home_page == merge_emails_like_on_home_page(contacts_db[i])
+        assert contacts_ui[i].all_phones_from_home_page == merge_phones_like_on_home_page(contacts_db[i])
 
 def clear(s):
     return re.sub("[() -]", "", s)
