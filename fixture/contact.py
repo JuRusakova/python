@@ -81,9 +81,9 @@ class ContactHelper:
     def modify_contact_by_id(self, id, new_contact):
         wd = self.app.wd
         self.home_page_cont()
-        self.select_contact_by_id(id)
+        #self.select_contact_by_id(id)
         # open modification form
-        wd.find_element(by=By.XPATH, value="//img[@alt='Edit']").click()
+        wd.find_element_by_xpath("//td/a[contains(@href, '%s')]/img[@title='Edit']" % id).click()
         # fill group form
         self.fill_contact_form(new_contact)
         # submit modification
@@ -208,7 +208,6 @@ class ContactHelper:
         workphone = re.search("W: (.*)", text).group(1)
         secondaryphone = re.search("P: (.*)", text).group(1)
         return Contact(home=homephone, mobile=mobilephone, workphone=workphone, phone2=secondaryphone)
-
 
 
 
