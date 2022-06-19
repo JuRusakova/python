@@ -8,7 +8,6 @@ def test_modify_contact(app, db, check_ui):
         app.contact.create(contact)
     old_contacts = db.get_contact_list()
     contact_random = random.choice(old_contacts)
-    contact.id = id
     app.contact.modify_contact_by_id(contact_random.id, contact)
     new_contacts_db = db.get_contact_list()
     new_contacts_ui = app.contact.get_contact_list()
