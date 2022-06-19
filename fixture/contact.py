@@ -1,6 +1,7 @@
 from selenium.webdriver.support.ui import Select
 from model.contact import Contact
 import re
+import random
 from selenium.webdriver.common.by import By
 class ContactHelper:
 
@@ -209,6 +210,33 @@ class ContactHelper:
         secondaryphone = re.search("P: (.*)", text).group(1)
         return Contact(home=homephone, mobile=mobilephone, workphone=workphone, phone2=secondaryphone)
 
+    def add_contact_to_group_by_id(self, contact_id, group_id):
+        wd = self.app.wd
+        self.home_page_cont()
+        self.select_contact_by_id(contact_id)
+        self.add_contact_to_group(group_id)
+        self.home_page_cont()
+        self.contact_cache = None
 
+    def add_contact_to_group(self, group):
+        wd = self.app.wd
+        if group is not None:
+            wd.find_element_by_name("to_group").click()
+            wd.find_element_by_css_selector("select[name='to_group'] [value='%s']" % group).click()
+            wd.find_element_by_name("add").click()
 
+    def del_contact_from_group_by_id(self, cid, gid):
+        wd = self.app.wd
+        self.home_page_cont()
+        self.delete_contact_to_group(cid, gid)
+        self.home_page_cont()
+        self.contact_cache = None
+
+    def delete_contact_to_group(self, group, g_c_id):
+        wd = self.app.wd
+        if group is not None:
+            wd.find_element_by_name("group").click()
+            wd.find_element_by_css_selector("select[name='group'] option[value='%s']" % g_c_id).click()
+            wd.find_element_by_css_selector("td[class='center'] input[type='checkbox']").click()
+            wd.find_element_by_name("remove").click()
 
