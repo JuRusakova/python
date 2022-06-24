@@ -8,7 +8,7 @@ def contact_list(db):
     return db.get_contact_list()
 
 
-@given(parsers.parse('a contact with <firstname> and <lastname>'), target_fixture="new_contact")
+@given(parsers.parse('a contact with {firstname} and {lastname}'), target_fixture="new_contact")
 def new_contact(firstname, lastname):
     return Contact(firstname=firstname, lastname=lastname)
 
